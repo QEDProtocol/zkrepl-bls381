@@ -322,7 +322,9 @@ async function analyzeCircom(files: File[]) {
     postMessage({
         type: "sarif",
         result: JSON.parse(
-            wasmFs.fs.readFileSync("__circomspect.sarif", "utf8") as string
+            //'{\n  "runs": [\n    {\n      "results": [],\n      "tool": {\n        "driver": {\n          "downloadUri": "https://github.com/trailofbits/circomspect",\n          "name": "Circomspect",\n          "organization": "Trail of Bits",\n          "rules": []\n        }\n      }\n    }\n  ],\n  "version": "2.1.0"\n}\n'
+
+             wasmFs.fs.readFileSync("__circomspect.sarif", "utf8") as string
         ),
     })
     console.timeEnd("start circomspect")
@@ -517,55 +519,54 @@ async function generateGroth16ProvingKey() {
     })
 }
 
+/*
+
+-rw-r--r--  1 carter  staff   1775722 Apr  7 16:25 pot10_final.ptau
+-rw-r--r--  1 carter  staff   3545194 Apr  7 16:26 pot11_final.ptau
+-rw-r--r--  1 carter  staff   7084138 Apr  7 16:27 pot12_final.ptau
+-rw-r--r--  1 carter  staff  28317802 Apr  7 16:09 pot14_final.ptau
+-rw-r--r--  1 carter  staff    448618 Apr  7 16:25 pot8_final.ptau
+-rw-r--r--  1 carter  staff    890986 Apr  7 16:28 pot9_final.ptau
+
+*/
+
 async function fetchPot(nConstraints: number) {
     const pots = [
         {
-            url: "https://fastfourier.nyc3.cdn.digitaloceanspaces.com/powers-of-tau/powersOfTau28_hez_final_11.ptau",
-            name: "powersOfTau28_hez_final_11.ptau",
-            maxConstraints: 1 << 11,
-            size: 2442392,
+            url: "https://fs.qed.zone/unsafebls12381ptau/pot8_final.ptau",
+            name: "powersOfTau28_hez_final_8.ptau",
+            maxConstraints: 1 << 8,
+            size: 448618,
         },
         {
-            url: "https://fastfourier.nyc3.cdn.digitaloceanspaces.com/powers-of-tau/powersOfTau28_hez_final_12.ptau",
+            url: "https://fs.qed.zone/unsafebls12381ptau/pot9_final.ptau",
+            name: "powersOfTau28_hez_final_9.ptau",
+            maxConstraints: 1 << 9,
+            size: 890986,
+        },
+        {
+            url: "https://fs.qed.zone/unsafebls12381ptau/pot10_final.ptau",
+            name: "powersOfTau28_hez_final_10.ptau",
+            maxConstraints: 1 << 10,
+            size: 1775722,
+        },
+        {
+            url: "https://fs.qed.zone/unsafebls12381ptau/pot11_final.ptau",
+            name: "powersOfTau28_hez_final_11.ptau",
+            maxConstraints: 1 << 10,
+            size: 3545194,
+        },
+        {
+            url: "https://fs.qed.zone/unsafebls12381ptau/pot12_final.ptau",
             name: "powersOfTau28_hez_final_12.ptau",
             maxConstraints: 1 << 12,
-            size: 4801688,
+            size: 7084138,
         },
         {
-            url: "https://fastfourier.nyc3.cdn.digitaloceanspaces.com/powers-of-tau/powersOfTau28_hez_final_13.ptau",
-            name: "powersOfTau28_hez_final_13.ptau",
-            maxConstraints: 1 << 13,
-            size: 9520280,
-        },
-        {
-            url: "https://fastfourier.nyc3.cdn.digitaloceanspaces.com/powers-of-tau/powersOfTau28_hez_final_14.ptau",
+            url: "https://fs.qed.zone/unsafebls12381ptau/pot14_final.ptau",
             name: "powersOfTau28_hez_final_14.ptau",
             maxConstraints: 1 << 14,
-            size: 18957464,
-        },
-        {
-            url: "https://fastfourier.nyc3.cdn.digitaloceanspaces.com/powers-of-tau/powersOfTau28_hez_final_15.ptau",
-            name: "powersOfTau28_hez_final_15.ptau",
-            maxConstraints: 1 << 15,
-            size: 37831832,
-        },
-        {
-            url: "https://fastfourier.nyc3.cdn.digitaloceanspaces.com/powers-of-tau/powersOfTau28_hez_final_16.ptau",
-            name: "powersOfTau28_hez_final_16.ptau",
-            maxConstraints: 1 << 16,
-            size: 75580568,
-        },
-        {
-            url: "https://fastfourier.nyc3.cdn.digitaloceanspaces.com/powers-of-tau/powersOfTau28_hez_final_17.ptau",
-            name: "powersOfTau28_hez_final_17.ptau",
-            maxConstraints: 1 << 17,
-            size: 151078040,
-        },
-        {
-            url: "https://fastfourier.nyc3.cdn.digitaloceanspaces.com/powers-of-tau/powersOfTau28_hez_final_18.ptau",
-            name: "powersOfTau28_hez_final_18.ptau",
-            maxConstraints: 1 << 18,
-            size: 302072984,
+            size: 28317802,
         },
     ]
 

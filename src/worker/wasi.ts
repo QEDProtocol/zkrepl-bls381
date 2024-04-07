@@ -239,9 +239,11 @@ export async function runCircomspect(fileName = "main.circom") {
                 "circomspect",
                 fileName,
                 "--sarif-file",
+                "-c",
+                "BLS12_381",
                 "__circomspect.sarif",
                 '--allow',
-                'P1003'
+                'P1003',
             ] as string[],
 
             // Environment variables that are accesible to the WASI module
@@ -275,6 +277,7 @@ export async function runCircom(
         nosym: false,
         nowasm: false,
         nor1cs: false,
+        prime: "bls12381"
     }
 ) {
     const runLoop = await createFsBindings()
@@ -292,6 +295,8 @@ export async function runCircom(
                 !options.nor1cs && "--r1cs",
                 !options.nowasm && "--wasm",
                 !options.nosym && "--sym",
+                "--prime",
+               "bls12381"
             ].filter((k) => k !== false) as string[],
 
             // Environment variables that are accesible to the WASI module

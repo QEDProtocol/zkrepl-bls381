@@ -586,14 +586,16 @@ export default function App() {
                                 "Github Gist"
                             )}
                         </div>
+                        <a href="https://qedprotocol.com" target="_blank">
                         <img
-                            className="logo"
+                            className="logoQed"
                             src={new URL(
-                                "./data/logo.png",
+                                "./data/qed.svg",
                                 import.meta.url
                             ).toString()}
                             alt="zkrepl"
                         />
+                        </a>
                     </div>
                     <br />
                     {messages.map((m, i) => (
